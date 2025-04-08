@@ -1,5 +1,8 @@
 package io.gui.console;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Map;
 
 public class DisplayConsole extends Console {
@@ -41,6 +44,21 @@ public class DisplayConsole extends Console {
 		return menuBuilder.toString() + EXIT_OPTION_LINE + LINE_BREAK;
 
 	}
+	
+    public String showContentFile(String nameFile) {
+        StringBuilder content = new StringBuilder();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(nameFile))) {
+        	int caracter;
+        	while ((caracter = reader.read()) != -1) {
+                content.append((char) caracter );
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return content.toString();
+    }
 	
 	public int exitKey() {
 		return Integer.parseInt(EXIT_KEY);
